@@ -14,7 +14,7 @@
     --img-idle:    url('lui2.png'); /* до создания */
     --img-success: url('lui3.png'); /* успех */
     --img-fail:    url('lui4.png'); /* неудача */
-    
+    --hero-img:    url('lui1.png'); /* фон страницы */
     --strip-img:   url('lui5.png'); /* горизонтальная полоса внизу */
   }
 
@@ -460,7 +460,7 @@
   .legend .sed::before { color: #ffd97d; }
   .legend .met::before { color: #7db8ff; }
 
-  /* === НОВЫЙ ГОРИЗОНТАЛЬНЫЙ БЛОК С КАРТИНКОЙ LUI5 === */
+  /* === ГОРИЗОНТАЛЬНЫЙ БЛОК С КАРТИНКОЙ LUI5 === */
   .strip-box {
     margin-top: 14px;
     width: 100%;
@@ -578,7 +578,7 @@
 
 <!-- ШАПКА -->
 <div class="hero">
-
+  
   <div class="hero-text">
     <h1>⛏️ Конструктор горных пород</h1>
     <p>Перетащи минералы в тигель — узнай, какая порода получится!</p>
@@ -624,7 +624,6 @@
 
     <!-- ГОРИЗОНТАЛЬНЫЙ БЛОК С КАРТИНКОЙ LUI5 -->
     <div class="strip-box">
-   
     </div>
   </div>
 
@@ -691,9 +690,10 @@
 </div>
 
 <script>
-/* ============ МИНЕРАЛЫ ============ */
+/* ============ 16 МИНЕРАЛОВ ============ */
 
 const minerals = [
+  // --- основные породообразующие ---
   { id: 'quartz',    name: 'Кварц',         icon: '🔷' },
   { id: 'feldspar',  name: 'Полевой шпат',  icon: '⚪' },
   { id: 'mica',      name: 'Слюда',         icon: '⏺' },
@@ -706,11 +706,18 @@ const minerals = [
   { id: 'magnetite', name: 'Магнетит',      icon: '🧲' },
   { id: 'hematite',  name: 'Гематит',       icon: '🟥' },
   { id: 'graphite',  name: 'Графит',        icon: '✏️' },
+
+  // --- НОВЫЕ 4 МИНЕРАЛА ---
+  { id: 'dolomite',  name: 'Доломит',       icon: '🟨' },
+  { id: 'pyrite',    name: 'Пирит',         icon: '🟡' },
+  { id: 'talc',      name: 'Тальк',         icon: '🧴' },
+  { id: 'malachite', name: 'Малахит',       icon: '💚' },
 ];
 
-/* ============ 12 ПОРОД ============ */
+/* ============ 16 ПОРОД ============ */
 
 const recipes = [
+  /* --- МАГМАТИЧЕСКИЕ (4) --- */
   { rock: 'Гранит',    icon: '🗿', type: 'магматическая',
     desc: 'Кварц + полевой шпат + слюда. Основа материков.',
     needs: ['quartz', 'feldspar', 'mica'],
@@ -731,6 +738,7 @@ const recipes = [
     needs: ['quartz', 'feldspar'],
     hardness: '5–6', streak: 'белая', acid: 'не шипит', magnet: 'нет' },
 
+  /* --- ОСАДОЧНЫЕ (6) --- */
   { rock: 'Известняк', icon: '🐚', type: 'осадочная',
     desc: 'Состоит из кальцита. Шипит от кислоты.',
     needs: ['calcite'],
@@ -751,6 +759,17 @@ const recipes = [
     needs: ['clay'],
     hardness: '2–3', streak: 'серая', acid: 'не шипит', magnet: 'нет' },
 
+  { rock: 'Доломит',   icon: '🟨', type: 'осадочная',
+    desc: 'Осадочная порода из минерала доломита.',
+    needs: ['dolomite'],
+    hardness: '3,5–4', streak: 'белая', acid: 'слабо шипит', magnet: 'нет' },
+
+  { rock: 'Тальковый камень', icon: '🧴', type: 'осадочная',
+    desc: 'Мягкая порода из талька. Мыльная на ощупь.',
+    needs: ['talc'],
+    hardness: '1', streak: 'белая', acid: 'не шипит', magnet: 'нет' },
+
+  /* --- МЕТАМОРФИЧЕСКИЕ (6) --- */
   { rock: 'Мрамор',    icon: '🏛️', type: 'метаморфическая',
     desc: 'Известняк под давлением. Отсюда скульптуры.',
     needs: ['calcite', 'calcite'],
@@ -770,6 +789,16 @@ const recipes = [
     desc: 'Порода из магнетита и гематита. Магнитная!',
     needs: ['magnetite', 'hematite'],
     hardness: '5–6', streak: 'красная', acid: 'не шипит', magnet: 'ДА!' },
+
+  { rock: 'Серный колчедан', icon: '🟡', type: 'метаморфическая',
+    desc: 'Порода из пирита. Блестит как золото!',
+    needs: ['pyrite', 'quartz'],
+    hardness: '6–6,5', streak: 'зеленовато-чёрная', acid: 'не шипит', magnet: 'нет' },
+
+  { rock: 'Малахитовая руда', icon: '💚', type: 'метаморфическая',
+    desc: 'Зелёная порода из малахита и кварца.',
+    needs: ['malachite', 'quartz'],
+    hardness: '3,5–4', streak: 'зелёная', acid: 'шипит!', magnet: 'нет' },
 ];
 
 /* ============ СОСТОЯНИЕ ============ */
